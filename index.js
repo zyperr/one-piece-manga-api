@@ -141,10 +141,10 @@ app.get("/", (req, res) => {
     res.send("Hello World!")
 })
 
-app.get("/api/chapters", [query("page").optional().toInt(), query("perPage").optional().toInt(), query("volume").optional().isString().matches(/[V-v]olume_\d+/).withMessage("Name of the volume must contain Volume + numbers e.g. Volume_1")], async (req, res) => {
+app.get("/api/chapters", [query("page").optional().toInt().default(1), query("perPage").optional().toInt().default(10), query("volume").optional().isString().matches(/[V-v]olume_\d+/).withMessage("Name of the volume must contain Volume + numbers e.g. Volume_1").default("")], async (req, res) => {
     let page = req.query.page;
     let perPage = req.query.perPage
-    let volume = req.query.volume.charAt(0).toUpperCase() + req.query.volume.slice(1)
+    let volume = req.query.volume
     const { data, totalItems, pages, dataPerPage, currentPage } = await readJson(page, perPage, pagination,volume).finally(() => console.log("finished")); //<--- read json file and organize it in pages
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -176,6 +176,10 @@ app.get("/api/chapters/:id", async (req, res) => {
         res.status(404).json({
             error: "chapter not found",
             id: `${id} not found`
+        })
+    }else if(id == null){
+        res.status(404).json({
+            error: "Id must not be null or undefined"
         })
     }
     res.json(chapter);
