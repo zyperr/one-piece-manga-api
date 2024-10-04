@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import { query, validationResult } from "express-validator";
+
 const domain = "https://onepiece.fandom.com/wiki/Chapters_and_Volumes/Volumes";
 
 const app = express();
@@ -139,7 +140,27 @@ async function getChapters() {
 
 
 app.get("/", (req, res) => {
-    res.send("Hello World!")
+    res.send({
+        message: "Welcome to One Piece API",
+        description:"A One piece API that provides you all the current chapter and volumes to 109 with the amount of pages,title,cover,volume title and other information.",
+        urls:[
+            {
+                url:`http://localhost:${port}/api/chapters`,
+                description:"Get all chapters",
+                method:"Get"
+            },
+            {
+                url:`http://localhost:${port}/api/chapters/:id`,
+                description:"Get a specific chapter",
+                method:"Get"
+            },
+            {
+                url:`http://localhost:${port}/api/chapters`,
+                description:"Create a new chapter",
+                method:"Post"
+            }
+        ]
+    })
 })
 
 app.get("/api/chapters", [query("page").optional().toInt().default(1), query("perPage").optional().toInt().default(10), query("volume").optional().isString().matches(/[V-v]olume_\d+/).withMessage("Name of the volume must contain Volume + numbers e.g. Volume_1").default("")], async (req, res) => {
