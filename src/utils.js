@@ -5,9 +5,7 @@ import { readdir } from "fs/promises";
 const folderPath = "./public/imgs";
 let maxVolumes = 109;
 let countVolumes = 0;
-async function saveCover(img){
 
-}
 async function openPageToGetImgs(domain,) {
     const browser = await launch({
         headless: false,
