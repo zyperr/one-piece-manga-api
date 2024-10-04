@@ -79,14 +79,15 @@ async function getChapters() {
             const data = dataNormile.map((el, index) => {
                 const pages = el.closest("tbody")?.childNodes[6]?.childNodes[7]
                 const volTitle = el.closest("tbody")?.childNodes[6]?.childNodes[3]
+                const vol = el.closest("tr").parentElement.firstChild.textContent.replace(/\n/g, "")
                 //TODO : FIX THIS TO HANDLE PROPERLY UNDEFINED TYPES for pages and volTitle <--- DONE!
                 if (el.title.match(/Chapter \d+/) && pages && volTitle) {
                     console.log(`Mapping chapter ${index}`)
                     if (pages.textContent && volTitle.textContent) {
                         return {
                             Text: el.textContent,
-                            Chapter: el.title,
-                            Volume: el.closest("tr").parentElement.firstChild.textContent.replace(/\n/g, ""),
+                            Chapter: parseInt(el.title.split(" ")[1]),
+                            Volume: parseInt(vol.split(" ")[1]),
                             CoverCharacters: el.closest("tr").childNodes[3].childNodes[3].textContent.split("\n"),
                             TotalPagesPerVolume: parseInt(pages.textContent.replace(/\n/, "")),
                             VolumeTitle: volTitle.textContent.replace(/\n/, "")
@@ -145,6 +146,7 @@ app.get("/api/chapters", [query("page").optional().toInt().default(1), query("pe
     let page = req.query.page;
     let perPage = req.query.perPage
     let volume = req.query.volume
+    
     const { data, totalItems, pages, dataPerPage, currentPage } = await readJson(page, perPage, pagination,volume).finally(() => console.log("finished")); //<--- read json file and organize it in pages
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
