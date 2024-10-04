@@ -79,13 +79,13 @@ cover of the volumes are represent by the following way /static/imgs/Volume 109.
 #### Body 
 ```javascript
    {
-       "Text": { type: 'string' },
-        "Chapter": { type: 'string', pattern: /Chapter \d+/, description: "Must start with Chapter and end with a number.It's case sensitive so make sure you write down Chapter instead of chapter" },
-        "Volume": { type: 'string', pattern: /Volume \d+/, description: "Must start with Volume and end with a number. It's case sensitive so make sure you write down Volume instead of volume" },
+        "Text": { type: 'string' },
+        "Chapter": { type: 'integer', description: "Must be an integer greater than 1",minimun: 1 },
+        "Volume": { type: 'integer', description: "Must be an integer greater than 1",minimum:1 },
         "CoverCharacters": { type: 'array', items: { type: 'string' } },
         "TotalPagesPerVolume": { type: 'string'},
         "VolumeTitle": { type: 'string' },
-        "Cover": { type: 'file' },
+        "Cover": { type: 'string' },
         "id": { type: 'string',description:"It generates automatically so don't worry it's not required" }
     }
 ```
@@ -97,8 +97,8 @@ cover of the volumes are represent by the following way /static/imgs/Volume 109.
 ```json
     {
         "Text": "Romance Dawn - The Dawn of the Adventure",
-        "Chapter": "Chapter 1",
-        "Volume": "Volume 1",
+        "Chapter": 1,
+        "Volume": 1,
         "CoverCharacters": [
             "Monkey D. Luffy",
             "Roronoa Zoro",
