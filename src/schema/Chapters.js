@@ -4,8 +4,8 @@ const chaptersSchema = {
     properties: {
 
         "Text": { type: 'string' },
-        "Chapter": { type: 'string', pattern: /Chapter \d+/, description: "Must start with Chapter and end with a number.It's case sensitive so make sure you write down Chapter instead of chapter" },
-        "Volume": { type: 'string', pattern: /Volume \d+/, description: "Must start with Volume and end with a number. It's case sensitive so make sure you write down Volume instead of volume" },
+        "Chapter": { type: 'integer', description: "Must be an integer greater than 1",minimun: 1 },
+        "Volume": { type: 'integer', description: "Must be an integer greater than 1",minimum:1 },
         "CoverCharacters": { type: 'array', items: { type: 'string' } },
         "TotalPagesPerVolume": { type: 'string'},
         "VolumeTitle": { type: 'string' },
@@ -15,8 +15,8 @@ const chaptersSchema = {
     "examples": [
         {
             "Text": "Romance Dawn - The Dawn of the Adventure",
-            "Chapter": "Chapter 1",
-            "Volume": "Volume 1",
+            "Chapter": 1,
+            "Volume": 1,
             "CoverCharacters": [
                 "Monkey D. Luffy",
                 "Roronoa Zoro",
