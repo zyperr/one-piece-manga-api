@@ -25,6 +25,7 @@
   "contributors": [],
   "scripts": {
     "dev": "nodemon index.js",
+    "scrap": "node index.js",
     "test": ""
   },
   "dependencies": {
