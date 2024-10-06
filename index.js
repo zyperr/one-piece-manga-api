@@ -1,4 +1,4 @@
-import { openPageToGetImgs, readFolder, pagination } from "./src/utils.js"
+import { openPageToGetImgs, readFolder, pagination , getChaptersInfo} from "./src/utils.js"
 import { readJson, addToJson, getChapterById } from "./src/manageJson.js"
 import chaptersSchema from "./src/schema/Chapters.js"
 import { validate } from "jsonschema"
@@ -127,7 +127,7 @@ async function getChapters() {
 
 //TODO: CREAR JSON Y AGREGAR DATOS AUTOMATICAMENTE <--- DONE!!!
 
-// Creates the pagination function to get a certain number of pages
+// Creates the pagination function to get a certain number of pages <-- DONE!! check src/utils.js
 // Maximun perPage 10
 
 
@@ -135,7 +135,7 @@ async function getChapters() {
 //getChapters(); //<--- Obtain all volumes and theirs data such as cover images,title and others
 //Use this to get screenshots of all volumes (If needed run again to get all volumes correctly)
 //openPageToGetImgs(domain);
-
+//getChaptersInfo("https://onepiece.fandom.com"); //<--- get aditional information about chapters
 
 
 
