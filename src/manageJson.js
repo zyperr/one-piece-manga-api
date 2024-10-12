@@ -1,7 +1,7 @@
-import { json } from 'express';
 import { writeFile, readFile } from 'fs/promises'
 import { v4 as uuidv4 } from 'uuid'
-
+import {readdir} from "fs/promises"
+import path from "path";
 async function readJson(page, perPage, pagination, perVolume) {
     try {
         const data = await readFile('./data.json', 'utf-8');
@@ -74,10 +74,27 @@ async function addID(){
     await writeFile('data.json', JSON.stringify({ Chapters: itemParse.Chapters }, null, 2), "utf-8");
     console.log("Data Json created");
 }
+async function addImages(){
+    const folder = "./public/imgs"
+    const files = await readdir(folder)
 
+    const items = await readFile('./data.json', 'utf-8');
+    const itemsParse = JSON.parse(items);
+    for (const el of itemsParse.Chapters) {
+        for (const file of files) {
+            const fileNumber = parseInt(file.split(" ")[1].replace(".png", ""))
+            if (el.Volume == fileNumber) {
+                const pathToImage = path.join(folder, file).replace(/\\/g, "/").replace("public", "/static")
+                el.Cover = pathToImage
+            }
+        }
+    }
+    await writeFile('data.json', JSON.stringify({ Chapters: itemsParse.Chapters }, null, 2), "utf-8");
+}
 export {
     readJson,
     addToJson,
     getChapterById,
-    addID
+    addID,
+    addImages
 }
