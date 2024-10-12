@@ -9,6 +9,9 @@ const chaptersSchema = {
         "CoverCharacters": { type: 'array', items: { type: 'string' } },
         "TotalPagesPerVolume": { type: 'string'},
         "VolumeTitle": { type: 'string' },
+        "coverChapter": { type: 'string' },
+        "CoverPageInfo": { type: 'string' },
+        "ShortSummary": { type: 'string' },
         "Cover": { type: 'string' },
         "id": { type: 'string',description:"It generates automatically so don't worry it's not required" }
     },
