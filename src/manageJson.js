@@ -65,10 +65,19 @@ async function getChapterById(id) {
     return itemJson
 }
 
-
+async function addID(){
+    const item = await readFile('./data.json', 'utf-8');
+    const itemParse = JSON.parse(item);
+    for (const el of itemParse.Chapters) {
+        el.id = uuidv4()
+    }
+    await writeFile('data.json', JSON.stringify({ Chapters: itemParse.Chapters }, null, 2), "utf-8");
+    console.log("Data Json created");
+}
 
 export {
     readJson,
     addToJson,
-    getChapterById
+    getChapterById,
+    addID
 }

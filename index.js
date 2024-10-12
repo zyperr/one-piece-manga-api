@@ -1,5 +1,5 @@
 import { openPageToGetImgs, readFolder, pagination , getChaptersInfo} from "./src/utils.js"
-import { readJson, addToJson, getChapterById } from "./src/manageJson.js"
+import { readJson, addToJson, getChapterById,addID } from "./src/manageJson.js"
 import chaptersSchema from "./src/schema/Chapters.js"
 import { validate } from "jsonschema"
 import { readFile, writeFile } from "fs/promises"
@@ -9,6 +9,8 @@ import { fileURLToPath } from "url";
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import { query, validationResult } from "express-validator";
+
+
 
 const domain = "https://onepiece.fandom.com/wiki/Chapters_and_Volumes/Volumes";
 
